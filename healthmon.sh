@@ -1,3 +1,3 @@
-echo -e "Disk space:    \n$(df)\n\n" >> /var/log/healthmon.log
-echo -e "Memory usage:  \n$(free -m)\n\n" >> /var/log/healthmon.log
-echo -e "CPU usage:     \n$(top -bn1) \n\n" >> /var/log/healthmon.log
+echo -e "Disk space:\n$(df | awk 'NR==1 || /\/$/ {print $0}')\n\n"
+echo -e "Memory usage:\n$(free -m | awk 'NR==1 || NR==2 {print $0}')\n\n"
+echo -e "CPU usage:\n$(top -bn1 | grep "Cpu(s)")\n\n"
